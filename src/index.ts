@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import detectProject, { ProjectType } from './project/detectProject';
 import ProjectInfo from './types/ProjectInfo';
 import getProjectJS from './project/getProjectJS';
