@@ -1,6 +1,8 @@
 import path from 'path';
 
-jest.mock('../src/utils/getCwd', () => jest.fn());
+jest.mock('../src/utils/getCwd', () => {
+    return jest.fn();
+});
 
 beforeEach(() => {
     jest.clearAllMocks();
