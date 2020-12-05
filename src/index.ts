@@ -30,7 +30,7 @@ const execute = () => {
         const projectInfo: ProjectInfo = getProjectInfo(projectType);
 
         console.log('Validating Project');
-        findAndValidateArtifact(projectType, projectInfo.version);
+        findAndValidateArtifact(projectType, projectInfo);
         validateDeploymentVersion(projectInfo.version);
 
         const dockerTag = `${repoPrefix}/${projectInfo.name}:${projectInfo.version}`
