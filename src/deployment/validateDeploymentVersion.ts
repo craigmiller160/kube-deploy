@@ -3,6 +3,7 @@ import fs from 'fs';
 import getCwd from '../utils/getCwd';
 import yaml from 'js-yaml';
 import KubeDeployment from '../types/KubeDeployment';
+import KubeError from '../error/KubeError';
 
 const DEPLOY_FILE_PATH = path.join('deploy', 'deployment.yml');
 
@@ -17,6 +18,6 @@ export default (projectVersion: string) => {
     const deployVersion = imageParts[imageParts.length - 1];
 
     if (deployVersion !== projectVersion) {
-        throw new Error(`Deployment version ${deployVersion} does not match project version ${projectVersion}`);
+        throw new KubeError(`Deployment version ${deployVersion} does not match project version ${projectVersion}`);
     }
 };
