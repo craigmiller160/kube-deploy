@@ -24,6 +24,9 @@ module.exports = {
     roots: [
         process.cwd()
     ],
+    setupFilesAfterEnv: [
+        path.resolve(process.cwd(), 'test/setup.ts')
+    ],
     collectCoverage: true,
     collectCoverageFrom: [
         path.resolve(process.cwd(), 'src/**/*.{js,jsx,ts,tsx}'),

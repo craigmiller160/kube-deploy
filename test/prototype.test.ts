@@ -2,6 +2,6 @@ import path from 'path';
 
 describe('Prototype', () => {
     it('testing', () => {
-        console.log('Testing');
+        console.log(process.cwd());
     });
 });
