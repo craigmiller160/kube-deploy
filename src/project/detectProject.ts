@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import getCwd from '../utils/getCwd';
 
 export enum ProjectType {
     JavaScript,
@@ -7,7 +8,7 @@ export enum ProjectType {
 }
 
 export default (): ProjectType => {
-    const files: Array<string> = fs.readdirSync(path.resolve(process.cwd()));
+    const files: Array<string> = fs.readdirSync(path.resolve(getCwd()));
     if (!!files.find((file) => file === 'package.json')) {
         return ProjectType.JavaScript;
     }
