@@ -1,8 +1,14 @@
 import spawn from 'cross-spawn';
 
+export interface SpawnArgs {
+    command: string;
+    args: string[];
+    cwd?: string;
+}
+
 // Spawn wrapper to support unit tests
-export const doSpawnSync = (command: string, args: string[], cwd?: string) =>
-    spawn.sync(command, args, {
+export const doSpawnSync = (args: SpawnArgs) =>
+    spawn.sync(args.command, args.args, {
         stdio: 'inherit',
-        cwd
+        cwd: args.cwd
     });
