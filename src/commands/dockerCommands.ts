@@ -33,7 +33,9 @@ export const dockerPush = (tag: string) => {
         ],
         cwd: path.resolve(getCwd(), 'deploy')
     });
-    console.error(chalk.red('Error executing docker push command'));
-    process.exit(1);
+    if (result.status !== 0) {
+        console.error(chalk.red('Error executing docker push command'));
+        process.exit(1);
+    }
 };
 
