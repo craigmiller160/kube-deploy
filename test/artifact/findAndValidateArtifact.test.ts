@@ -54,20 +54,22 @@ describe('findAndValidateArtifact', () => {
     });
 
     it('too many artifacts', () => {
-        throw new Error('Finish this');
         try {
-
+            getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js2'));
+            findAndValidateArtifact(ProjectType.JavaScript, validVersion);
         } catch (ex) {
+            expect(ex.message).toEqual(expect.stringContaining('Too many possible artifacts found'));
             return
         }
         throw new Error('Should have thrown error');
     });
 
     it('no artifacts', () => {
-        throw new Error('Finish this');
         try {
-
+            getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js3'));
+            findAndValidateArtifact(ProjectType.JavaScript, validVersion);
         } catch (ex) {
+            expect(ex.message).toEqual(expect.stringContaining('No artifact found'));
             return
         }
         throw new Error('Should have thrown error');
