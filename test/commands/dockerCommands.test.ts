@@ -4,4 +4,8 @@ describe('dockerCommands', () => {
     it('dockerBuild', () => {
         throw new Error();
     });
+
+    it('dockerPush', () => {
+        throw new Error();
+    });
 });

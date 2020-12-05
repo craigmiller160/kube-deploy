@@ -14,3 +14,13 @@ export const dockerBuild = (tag: string): SpawnSyncReturns<Buffer> =>
         ],
         cwd: path.resolve(getCwd(), 'deploy')
     });
+
+export const dockerPush = (tag: string): SpawnSyncReturns<Buffer> =>
+    doSpawnSync({
+        command: 'docker',
+        args: [
+            'push',
+            tag
+        ],
+        cwd: path.resolve(getCwd(), 'deploy')
+    });
