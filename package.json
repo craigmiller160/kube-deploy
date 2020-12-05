@@ -2,8 +2,5 @@
   "name": "kube-deploy",
   "version": "1.0.0-beta",
   "main": "index.js",
-  "license": "MIT",
-  "bin": {
-    "kube-deploy": "./src/index.js"
-  }
+  "license": "MIT"
 }
