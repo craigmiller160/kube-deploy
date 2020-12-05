@@ -9,7 +9,8 @@ const DEPLOY_FILE_PATH = path.join('deploy', 'deployment.yml');
 
 export default (projectVersion: string) => {
     const deployFilePath = path.resolve(getCwd(), DEPLOY_FILE_PATH);
-    const deploymentText = fs.readFileSync(deployFilePath, 'utf8');
+    const fullDeploymentFileText = fs.readFileSync(deployFilePath, 'utf8');
+    const deploymentText = fullDeploymentFileText.split('---')[0];
 
     const deployment: KubeDeployment = yaml.safeLoad(deploymentText) as KubeDeployment;
     const image: string = deployment.spec.template.spec.containers[0].image;
