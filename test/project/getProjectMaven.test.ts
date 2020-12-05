@@ -10,7 +10,6 @@ describe('getProjectMaven',  () => {
     it('gets maven project info',  () => {
         getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/maven'));
         const result: ProjectInfo = getProjectMaven();
-        console.log('Beyond fn'); // TODO delete this
         expect(result).toEqual({
             name: 'sample-project',
             version: '1.0.0'
