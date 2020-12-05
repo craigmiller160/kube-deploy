@@ -8,6 +8,7 @@ const getCwdMock: Mock = getCwd as Mock;
 const validVersion = '1.0.0';
 const invalidVersion = '2.0.0';
 const jsArtifactPath = '/test/__data__/js/deploy/build/sample-project-1.0.0.zip'
+const mavenArtifactPath = '/test/__data__/maven/deploy/build/sample-project-1.0.0.jar'
 
 describe('findAndValidateArtifact', () => {
     it('JS artifact version is valid', () => {
@@ -20,15 +21,36 @@ describe('findAndValidateArtifact', () => {
     });
 
     it('Maven artifact version is valid', () => {
-        throw new Error();
+        getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/maven'));
+        const result = findAndValidateArtifact(ProjectType.Maven, validVersion);
+        expect(result).not.toBeNull();
+        expect(result).not.toBeUndefined();
+        const resultWithoutCwd = result.replace(process.cwd(), '');
+        expect(resultWithoutCwd).toEqual(mavenArtifactPath);
     });
 
     it('JS artifact version is not valid', () => {
-        throw new Error();
+        try {
+            getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js'));
+            findAndValidateArtifact(ProjectType.JavaScript, invalidVersion);
+        } catch (ex) {
+            expect(ex.message).toEqual('Artifact version 1.0.0 does not match project version 2.0.0')
+            return
+        }
+
+        throw new Error('Should have thrown error');
     });
 
     it('Maven artifact version is not valid', () => {
-        throw new Error();
+        try {
+            getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/maven'));
+            findAndValidateArtifact(ProjectType.Maven, invalidVersion);
+        } catch (ex) {
+            expect(ex.message).toEqual('Artifact version 1.0.0 does not match project version 2.0.0')
+            return
+        }
+
+        throw new Error('Should have thrown error');
     });
 
     it('too many artifacts', () => {
