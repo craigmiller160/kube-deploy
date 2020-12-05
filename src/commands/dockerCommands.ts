@@ -2,6 +2,7 @@ import path from 'path';
 import getCwd from '../utils/getCwd';
 import { doSpawnSync } from '../utils/doSpawn';
 import chalk from 'chalk';
+import KubeError from '../error/KubeError';
 
 export const dockerBuild = (tag: string) => {
     const result = doSpawnSync({
@@ -17,8 +18,7 @@ export const dockerBuild = (tag: string) => {
         cwd: path.resolve(getCwd(), 'deploy')
     });
     if (result.status !== 0) {
-        console.error(chalk.red('Error executing docker build command'));
-        process.exit(1);
+        throw new KubeError('Error executing docker build command');
     }
 };
 
@@ -33,8 +33,7 @@ export const dockerPush = (tag: string) => {
         cwd: path.resolve(getCwd(), 'deploy')
     });
     if (result.status !== 0) {
-        console.error(chalk.red('Error executing docker push command'));
-        process.exit(1);
+        throw new KubeError('Error executing docker push command');
     }
 };
 

@@ -2,6 +2,7 @@ import path from 'path';
 import { doSpawnSync } from '../utils/doSpawn';
 import getCwd from '../utils/getCwd';
 import chalk from 'chalk';
+import KubeError from '../error/KubeError';
 
 export const applyConfigMap = () => {
     const result = doSpawnSync({
@@ -14,8 +15,7 @@ export const applyConfigMap = () => {
         cwd: path.resolve(getCwd(), 'deploy')
     });
     if (result.status !== 0) {
-        console.error(chalk.red('Error executing kubectl apply configmap command'));
-        process.exit(1);
+        throw new KubeError('Error executing kubectl apply configmap command');
     }
 };
 
@@ -30,7 +30,6 @@ export const applyDeployment = () => {
         cwd: path.resolve(getCwd(), 'deploy')
     });
     if (result.status !== 0) {
-        console.error(chalk.red('Error executing kubectl apply deployment command'));
-        process.exit(1);
+        throw new KubeError('Error executing kubectl apply deployment command');
     }
 };

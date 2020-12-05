@@ -2,4 +2,5 @@
 
 import execute from './execution';
 
-execute();
+const status = execute();
+process.exit(status);

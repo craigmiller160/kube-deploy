@@ -20,7 +20,7 @@ const getProjectInfo = (projectType: ProjectType): ProjectInfo => {
     }
 };
 
-const execute = () => {
+const execute = (): number => {
     try {
         console.log('Getting Project Data');
         const projectType: ProjectType = detectProject();
@@ -37,9 +37,9 @@ const execute = () => {
         dockerPush(dockerTag);
         applyConfigMap();
         applyDeployment();
-        // TODO k8s restart deployment (optional)
 
         console.log(chalk.green(`Deployment complete ${dockerTag}`));
+        return 0;
     } catch (ex) {
         if (ex.name === 'KubeError') {
             console.error(chalk.red(`KubeError: ${ex.message}`));
@@ -47,6 +47,7 @@ const execute = () => {
             console.error(chalk.red(`Error: ${ex.message}`));
             console.trace(ex);
         }
+        return 1;
     }
 };
 
