@@ -44,7 +44,11 @@ const execute = () => {
         // TODO k8s apply deployment
         // TODO k8s restart deployment (optional)
     } catch (ex) {
-        console.error(ex.message);
+        if (ex.name === 'KubeError') {
+            console.error(ex.message);
+        } else {
+            console.error(ex);
+        }
     }
 };
 

@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import getCwd from '../utils/getCwd';
+import KubeError from '../error/KubeError';
 
 export enum ProjectType {
     JavaScript = 'JavaScript',
@@ -16,5 +17,5 @@ export default (): ProjectType => {
         return ProjectType.Maven;
     }
 
-    throw new Error('Cannot identify project type');
+    throw new KubeError('Cannot identify project type');
 };
