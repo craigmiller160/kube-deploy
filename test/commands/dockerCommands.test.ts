@@ -6,8 +6,8 @@ import { dockerBuild, dockerPush } from '../../src/commands/dockerCommands';
 const getCwdMock: Mock = getCwd as Mock;
 const doSpawnSyncMock: Mock = doSpawnSync as Mock;
 
-const cwd = '/home/dir'
-const tag = 'localhost:3200/sample-project:1.0.0'
+const cwd = '/home/dir';
+const tag = 'localhost:3200/sample-project:1.0.0';
 
 describe('dockerCommands', () => {
     beforeEach(() => {
@@ -16,7 +16,7 @@ describe('dockerCommands', () => {
     });
     it('dockerBuild', () => {
         dockerBuild(tag);
-        expect(doSpawnSyncMock).toHaveBeenLastCalledWith({
+        expect(doSpawnSyncMock).toHaveBeenCalledWith({
             command: 'sudo',
             args: [
                 'docker',
@@ -32,7 +32,7 @@ describe('dockerCommands', () => {
 
     it('dockerPush', () => {
         dockerPush(tag);
-        expect(doSpawnSyncMock).toHaveBeenLastCalledWith({
+        expect(doSpawnSyncMock).toHaveBeenCalledWith({
             command: 'sudo',
             args: [
                 'docker',

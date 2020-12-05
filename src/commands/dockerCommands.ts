@@ -1,7 +1,6 @@
 import path from 'path';
 import getCwd from '../utils/getCwd';
 import { doSpawnSync } from '../utils/doSpawn';
-import { SpawnSyncReturns } from 'child_process';
 import chalk from 'chalk';
 
 export const dockerBuild = (tag: string) => {
