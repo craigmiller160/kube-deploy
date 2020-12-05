@@ -4,6 +4,7 @@ import getProjectJS from './project/getProjectJS';
 import getProjectMaven from './project/getProjectMaven';
 import findAndValidateArtifact from './artifact/findAndValidateArtifact';
 import validateDeploymentVersion from './deployment/validateDeploymentVersion';
+import { dockerBuild } from './commands/dockerCommands';
 
 const repoPrefix = 'localhost:32000';
 
@@ -28,6 +29,8 @@ const execute = () => {
 
     const dockerTag = `${repoPrefix}/${projectInfo.name}:${projectInfo.version}`
     console.log(`Deploying ${dockerTag}`);
+
+    dockerBuild(dockerTag);
 
     // TODO docker build (in deploy directory)
     // TODO docker push
