@@ -6,7 +6,7 @@ import getProjectJS from './project/getProjectJS';
 import getProjectMaven from './project/getProjectMaven';
 import findAndValidateArtifact from './artifact/findAndValidateArtifact';
 import validateDeploymentVersion from './deployment/validateDeploymentVersion';
-import { dockerBuild } from './commands/dockerCommands';
+import { dockerBuild, dockerPush } from './commands/dockerCommands';
 import chalk from 'chalk';
 
 // TODO use chalk to get colors
@@ -37,9 +37,8 @@ const execute = () => {
         console.log(`Deploying ${dockerTag}`);
 
         dockerBuild(dockerTag);
+        dockerPush(dockerTag);
 
-        // TODO docker build (in deploy directory)
-        // TODO docker push
         // TODO k8s apply configmap
         // TODO k8s apply deployment
         // TODO k8s restart deployment (optional)

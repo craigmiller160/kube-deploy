@@ -21,11 +21,10 @@ export const dockerBuild = (tag: string) => {
         console.error(chalk.red('Error executing docker build command'));
         process.exit(1);
     }
-}
+};
 
-
-export const dockerPush = (tag: string): SpawnSyncReturns<Buffer> =>
-    doSpawnSync({
+export const dockerPush = (tag: string) => {
+    const result = doSpawnSync({
         command: 'sudo',
         args: [
             'docker',
@@ -34,3 +33,7 @@ export const dockerPush = (tag: string): SpawnSyncReturns<Buffer> =>
         ],
         cwd: path.resolve(getCwd(), 'deploy')
     });
+    console.error(chalk.red('Error executing docker push command'));
+    process.exit(1);
+};
+
