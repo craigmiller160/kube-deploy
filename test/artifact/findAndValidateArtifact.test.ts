@@ -1,7 +1,11 @@
 import path from 'path';
 
 describe('findAndValidateArtifact', () => {
-    it('version is valid', () => {
+    it('JS artifact version is valid', () => {
+        throw new Error();
+    });
+
+    it('Maven artifact version is valid', () => {
         throw new Error();
     });
 
