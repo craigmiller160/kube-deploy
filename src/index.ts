@@ -5,6 +5,8 @@ import getProjectMaven from './project/getProjectMaven';
 import findAndValidateArtifact from './artifact/findAndValidateArtifact';
 import validateDeploymentVersion from './deployment/validateDeploymentVersion';
 
+const repoPrefix = 'localhost:32000';
+
 const getProjectInfo = (projectType: ProjectType): ProjectInfo => {
     switch (projectType) {
         case ProjectType.JavaScript:
@@ -16,12 +18,17 @@ const getProjectInfo = (projectType: ProjectType): ProjectInfo => {
 };
 
 const execute = () => {
+    console.log('Getting Project Data');
     const projectType: ProjectType = detectProject();
     const projectInfo: ProjectInfo = getProjectInfo(projectType);
+
+    console.log('Validating Project');
     findAndValidateArtifact(projectType, projectInfo.version);
     validateDeploymentVersion(projectInfo.version);
 
-    // TODO tag plus repo prefix
+    const dockerTag = `${repoPrefix}/${projectInfo.name}:${projectInfo.version}`
+    console.log(`Deploying ${dockerTag}`);
+
     // TODO docker build (in deploy directory)
     // TODO docker push
     // TODO k8s apply configmap
