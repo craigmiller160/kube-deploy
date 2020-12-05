@@ -18,7 +18,7 @@ export const applyConfigMap = () => {
         console.error(chalk.red('Error executing kubectl apply configmap command'));
         process.exit(1);
     }
-}
+};
 
 export const applyDeployment = () => {
     const result = doSpawnSync({
@@ -27,10 +27,11 @@ export const applyDeployment = () => {
             'apply',
             '-f',
             'deployment.yml'
-        ]
+        ],
+        cwd: path.resolve(getCwd(), 'deploy')
     });
     if (result.status !== 0) {
         console.error(chalk.red('Error executing kubectl apply deployment command'));
         process.exit(1);
     }
-}
+};
