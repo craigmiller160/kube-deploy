@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: funcoast-hi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: funcoast-hi
+  template:
+    metadata:
+      labels:
+        app: funcoast-hi
+    spec:
+      containers:
+        - name: funcoast-hi
+          image: localhost:32000/sample-project:1.0.0
+          ports:
+            - containerPort: 7071
+          envFrom:
+            - configMapRef:
+                name: funcoast-hi-configmap
+          livenessProbe:
+            httpGet:
+              path: /funcoast-hi/api/healthcheck
+              port: 7071
+              scheme: HTTPS
+            initialDelaySeconds: 10
+            periodSeconds: 300
