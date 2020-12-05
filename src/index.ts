@@ -47,9 +47,9 @@ const execute = () => {
         console.log(chalk.green(`Deployment complete ${dockerTag}`));
     } catch (ex) {
         if (ex.name === 'KubeError') {
-            console.error(chalk.red(ex.message));
+            console.error(chalk.red(`KubeError: ${ex.message}`));
         } else {
-            console.error(chalk.red(ex.message));
+            console.error(chalk.red(`Error: ${ex.message}`));
             console.trace(ex);
         }
     }
