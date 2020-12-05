@@ -1,9 +1,11 @@
 import path from 'path';
 import getCwd from '../utils/getCwd';
+import yaml from 'js-yaml';
 
-const DEPLOY_DIR_PATH = 'deploy';
+const DEPLOY_FILE_PATH = path.join('deploy', 'deployment.yml');
 
 export default (projectVersion: string) => {
-    const deployDirPath = path.resolve(getCwd(), DEPLOY_DIR_PATH);
-    // TODO finish this
+    const deployFilePath = path.resolve(getCwd(), DEPLOY_FILE_PATH);
+    const deployment = yaml.safeLoad(deployFilePath);
+    console.log(deployment);
 };
