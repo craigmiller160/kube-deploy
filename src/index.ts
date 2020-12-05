@@ -8,6 +8,8 @@ import findAndValidateArtifact from './artifact/findAndValidateArtifact';
 import validateDeploymentVersion from './deployment/validateDeploymentVersion';
 import { dockerBuild } from './commands/dockerCommands';
 
+// TODO use chalk to get colors
+
 const repoPrefix = 'localhost:32000';
 
 const getProjectInfo = (projectType: ProjectType): ProjectInfo => {
@@ -21,25 +23,29 @@ const getProjectInfo = (projectType: ProjectType): ProjectInfo => {
 };
 
 const execute = () => {
-    console.log('Getting Project Data');
-    const projectType: ProjectType = detectProject();
-    const projectInfo: ProjectInfo = getProjectInfo(projectType);
+    try {
+        console.log('Getting Project Data');
+        const projectType: ProjectType = detectProject();
+        const projectInfo: ProjectInfo = getProjectInfo(projectType);
 
-    console.log('Validating Project');
-    findAndValidateArtifact(projectType, projectInfo.version);
-    validateDeploymentVersion(projectInfo.version);
+        console.log('Validating Project');
+        findAndValidateArtifact(projectType, projectInfo.version);
+        validateDeploymentVersion(projectInfo.version);
 
-    const dockerTag = `${repoPrefix}/${projectInfo.name}:${projectInfo.version}`
-    console.log(`Deploying ${dockerTag}`);
+        const dockerTag = `${repoPrefix}/${projectInfo.name}:${projectInfo.version}`
+        console.log(`Deploying ${dockerTag}`);
 
-    dockerBuild(dockerTag);
-    console.log('Done'); // TODO delete this
+        dockerBuild(dockerTag);
+        console.log('Done'); // TODO delete this
 
-    // TODO docker build (in deploy directory)
-    // TODO docker push
-    // TODO k8s apply configmap
-    // TODO k8s apply deployment
-    // TODO k8s restart deployment (optional)
+        // TODO docker build (in deploy directory)
+        // TODO docker push
+        // TODO k8s apply configmap
+        // TODO k8s apply deployment
+        // TODO k8s restart deployment (optional)
+    } catch (ex) {
+        console.error(ex.message);
+    }
 };
 
 execute();
