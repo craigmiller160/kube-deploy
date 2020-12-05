@@ -8,6 +8,7 @@ import findAndValidateArtifact from './artifact/findAndValidateArtifact';
 import validateDeploymentVersion from './deployment/validateDeploymentVersion';
 import { dockerBuild, dockerPush } from './commands/dockerCommands';
 import chalk from 'chalk';
+import { applyConfigMap, applyDeployment } from './commands/kubeCommands';
 
 // TODO use chalk to get colors
 
@@ -38,9 +39,8 @@ const execute = () => {
 
         dockerBuild(dockerTag);
         dockerPush(dockerTag);
-
-        // TODO k8s apply configmap
-        // TODO k8s apply deployment
+        applyConfigMap();
+        applyDeployment();
         // TODO k8s restart deployment (optional)
 
         console.log(chalk.green(`Deployment complete ${dockerTag}`));
