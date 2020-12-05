@@ -54,10 +54,22 @@ describe('findAndValidateArtifact', () => {
     });
 
     it('too many artifacts', () => {
-        throw new Error();
+        throw new Error('Finish this');
+        try {
+
+        } catch (ex) {
+            return
+        }
+        throw new Error('Should have thrown error');
     });
 
     it('no artifacts', () => {
-        throw new Error();
+        throw new Error('Finish this');
+        try {
+
+        } catch (ex) {
+            return
+        }
+        throw new Error('Should have thrown error');
     });
 });
