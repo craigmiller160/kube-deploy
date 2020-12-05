@@ -29,9 +29,7 @@ export default (projectType: ProjectType, projectVersion: string): string => {
         throw new Error(`Too many possible artifacts found in ${buildDir} for project type ${projectType}`);
     }
 
-    console.log(artifacts[0]); // TODO delete this
-
-    const parts = artifacts[0].replaceAll(new RegExp(`${ext}$`), '').split('-');
+    const parts = artifacts[0].replace(new RegExp(`\.${ext}$`), '').split('-');
     const version = parts[parts.length - 1];
     if (version !== projectVersion) {
         throw new Error(`Artifact version ${version} does not match project version ${projectVersion}`);
