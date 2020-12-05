@@ -20,7 +20,8 @@ describe('dockerCommands', () => {
             args: [
                 'build',
                 '--network=host',
-                `-t ${tag}`,
+                '-t',
+                tag,
                 '.'
             ],
             cwd: `${cwd}/deploy`

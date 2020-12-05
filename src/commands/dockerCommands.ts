@@ -9,7 +9,8 @@ export const dockerBuild = (tag: string): SpawnSyncReturns<Buffer> =>
         args: [
             'build',
             '--network=host',
-            `-t ${tag}`,
+            '-t',
+            tag,
             '.'
         ],
         cwd: path.resolve(getCwd(), 'deploy')
