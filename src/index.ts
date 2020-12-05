@@ -37,7 +37,6 @@ const execute = () => {
         console.log(`Deploying ${dockerTag}`);
 
         dockerBuild(dockerTag);
-        console.log('Done'); // TODO delete this
 
         // TODO docker build (in deploy directory)
         // TODO docker push
