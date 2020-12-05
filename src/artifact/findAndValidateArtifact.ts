@@ -25,9 +25,11 @@ export default (projectType: ProjectType, projectVersion: string): string => {
         throw new Error(`No artifact found in ${buildDir} for project type ${projectType}`);
     }
 
-    if (artifacts.length > 0) {
+    if (artifacts.length > 1) {
         throw new Error(`Too many possible artifacts found in ${buildDir} for project type ${projectType}`);
     }
+
+    console.log(artifacts[0]); // TODO delete this
 
     const parts = artifacts[0].replaceAll(new RegExp(`${ext}$`), '').split('-');
     const version = parts[parts.length - 1];
