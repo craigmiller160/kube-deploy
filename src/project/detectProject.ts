@@ -3,8 +3,8 @@ import path from 'path';
 import getCwd from '../utils/getCwd';
 
 export enum ProjectType {
-    JavaScript,
-    Maven
+    JavaScript = 'JavaScript',
+    Maven = 'Maven'
 }
 
 export default (): ProjectType => {
