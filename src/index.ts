@@ -20,6 +20,13 @@ const execute = () => {
     const projectInfo: ProjectInfo = getProjectInfo(projectType);
     findAndValidateArtifact(projectType, projectInfo.version);
     validateDeploymentVersion(projectInfo.version);
+
+    // TODO tag plus repo prefix
+    // TODO docker build (in deploy directory)
+    // TODO docker push
+    // TODO k8s apply configmap
+    // TODO k8s apply deployment
+    // TODO k8s restart deployment (optional)
 };
 
 execute();
