@@ -7,6 +7,7 @@ import getProjectMaven from './project/getProjectMaven';
 import findAndValidateArtifact from './artifact/findAndValidateArtifact';
 import validateDeploymentVersion from './deployment/validateDeploymentVersion';
 import { dockerBuild } from './commands/dockerCommands';
+import chalk from 'chalk';
 
 // TODO use chalk to get colors
 
@@ -43,11 +44,14 @@ const execute = () => {
         // TODO k8s apply configmap
         // TODO k8s apply deployment
         // TODO k8s restart deployment (optional)
+
+        console.log(chalk.green(`Deployment complete ${dockerTag}`));
     } catch (ex) {
         if (ex.name === 'KubeError') {
-            console.error(ex.message);
+            console.error(chalk.red(ex.message));
         } else {
-            console.error(ex);
+            console.error(chalk.red(ex.message));
+            console.trace(ex);
         }
     }
 };
