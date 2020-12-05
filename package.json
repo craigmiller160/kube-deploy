@@ -2,5 +2,8 @@
   "name": "kube-deploy",
   "version": "1.0.0-beta",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.14.10"
+  }
 }
