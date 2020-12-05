@@ -3,17 +3,24 @@ import getCwd from '../../src/utils/getCwd';
 import findAndValidateArtifact from '../../src/artifact/findAndValidateArtifact';
 import { ProjectType } from '../../src/project/detectProject';
 import Mock = jest.Mock;
+import ProjectInfo from '../../src/types/ProjectInfo';
 
 const getCwdMock: Mock = getCwd as Mock;
-const validVersion = '1.0.0';
-const invalidVersion = '2.0.0';
+const validProjectInfo: ProjectInfo = {
+    name: 'sample-project',
+    version: '1.0.0'
+};
+const invalidProjectInfo: ProjectInfo = {
+    name: 'sample-project',
+    version: '2.0.0'
+};
 const jsArtifactPath = '/test/__data__/js/deploy/build/sample-project-1.0.0.zip'
 const mavenArtifactPath = '/test/__data__/maven/deploy/build/sample-project-1.0.0.jar'
 
 describe('findAndValidateArtifact', () => {
     it('JS artifact version is valid', () => {
         getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js'));
-        const result = findAndValidateArtifact(ProjectType.JavaScript, validVersion);
+        const result = findAndValidateArtifact(ProjectType.JavaScript, validProjectInfo);
         expect(result).not.toBeNull();
         expect(result).not.toBeUndefined();
         const resultWithoutCwd = result.replace(process.cwd(), '');
@@ -22,7 +29,7 @@ describe('findAndValidateArtifact', () => {
 
     it('Maven artifact version is valid', () => {
         getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/maven'));
-        const result = findAndValidateArtifact(ProjectType.Maven, validVersion);
+        const result = findAndValidateArtifact(ProjectType.Maven, validProjectInfo);
         expect(result).not.toBeNull();
         expect(result).not.toBeUndefined();
         const resultWithoutCwd = result.replace(process.cwd(), '');
@@ -32,7 +39,7 @@ describe('findAndValidateArtifact', () => {
     it('JS artifact version is not valid', () => {
         try {
             getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js'));
-            findAndValidateArtifact(ProjectType.JavaScript, invalidVersion);
+            findAndValidateArtifact(ProjectType.JavaScript, invalidProjectInfo);
         } catch (ex) {
             expect(ex.message).toEqual('Artifact version 1.0.0 does not match project version 2.0.0')
             return
@@ -44,7 +51,7 @@ describe('findAndValidateArtifact', () => {
     it('Maven artifact version is not valid', () => {
         try {
             getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/maven'));
-            findAndValidateArtifact(ProjectType.Maven, invalidVersion);
+            findAndValidateArtifact(ProjectType.Maven, invalidProjectInfo);
         } catch (ex) {
             expect(ex.message).toEqual('Artifact version 1.0.0 does not match project version 2.0.0')
             return
@@ -56,7 +63,7 @@ describe('findAndValidateArtifact', () => {
     it('too many artifacts', () => {
         try {
             getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js2'));
-            findAndValidateArtifact(ProjectType.JavaScript, validVersion);
+            findAndValidateArtifact(ProjectType.JavaScript, validProjectInfo);
         } catch (ex) {
             expect(ex.message).toEqual(expect.stringContaining('Too many possible artifacts found'));
             return
@@ -67,7 +74,7 @@ describe('findAndValidateArtifact', () => {
     it('no artifacts', () => {
         try {
             getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js3'));
-            findAndValidateArtifact(ProjectType.JavaScript, validVersion);
+            findAndValidateArtifact(ProjectType.JavaScript, validProjectInfo);
         } catch (ex) {
             expect(ex.message).toEqual(expect.stringContaining('No artifact found'));
             return

@@ -3,6 +3,7 @@ import fs from 'fs';
 import { ProjectType } from '../project/detectProject';
 import getCwd from '../utils/getCwd';
 import KubeError from '../error/KubeError';
+import ProjectInfo from '../types/ProjectInfo';
 
 const DEPLOY_BUILD_DIR = path.join('deploy', 'build');
 
@@ -16,7 +17,7 @@ const getArtifactExt = (projectType: ProjectType): string => {
     }
 };
 
-export default (projectType: ProjectType, projectVersion: string): string => {
+export default (projectType: ProjectType, projectInfo: ProjectInfo): string => {
     const ext = getArtifactExt(projectType);
     const buildDir = path.resolve(getCwd(), DEPLOY_BUILD_DIR);
     const files: string[] = fs.readdirSync(buildDir);
@@ -30,10 +31,11 @@ export default (projectType: ProjectType, projectVersion: string): string => {
         throw new KubeError(`Too many possible artifacts found in ${buildDir} for project type ${projectType}`);
     }
 
-    const parts = artifacts[0].replace(new RegExp(`\.${ext}$`), '').split('-');
-    const version = parts[parts.length - 1];
-    if (version !== projectVersion) {
-        throw new KubeError(`Artifact version ${version} does not match project version ${projectVersion}`);
+    const artifactVersion = artifacts[0]
+        .replace(new RegExp(`^${projectInfo.name}-`), '')
+        .replace(new RegExp(`\.${ext}$`), '');
+    if (artifactVersion !== projectInfo.version) {
+        throw new KubeError(`Artifact version ${artifactVersion} does not match project version ${projectInfo.version}`);
     }
 
     return path.resolve(buildDir, artifacts[0]);
