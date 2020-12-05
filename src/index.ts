@@ -3,6 +3,7 @@ import ProjectInfo from './types/ProjectInfo';
 import getProjectJS from './project/getProjectJS';
 import getProjectMaven from './project/getProjectMaven';
 import findAndValidateArtifact from './artifact/findAndValidateArtifact';
+import validateDeploymentVersion from './deployment/validateDeploymentVersion';
 
 const getProjectInfo = (projectType: ProjectType): ProjectInfo => {
     switch (projectType) {
@@ -18,6 +19,7 @@ const execute = () => {
     const projectType: ProjectType = detectProject();
     const projectInfo: ProjectInfo = getProjectInfo(projectType);
     findAndValidateArtifact(projectType, projectInfo.version);
+    validateDeploymentVersion(projectInfo.version);
 };
 
 execute();
