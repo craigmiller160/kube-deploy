@@ -6,8 +6,9 @@ import chalk from 'chalk';
 
 export const dockerBuild = (tag: string) => {
     const result = doSpawnSync({
-        command: 'docker',
+        command: 'sudo',
         args: [
+            'docker',
             'build',
             '--network=host',
             '-t',
