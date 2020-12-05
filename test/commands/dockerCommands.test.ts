@@ -12,12 +12,14 @@ const tag = 'localhost:3200/sample-project:1.0.0'
 describe('dockerCommands', () => {
     beforeEach(() => {
         getCwdMock.mockImplementation(() => cwd);
+        doSpawnSyncMock.mockImplementation(() => ({ status: 0 }));
     });
     it('dockerBuild', () => {
         dockerBuild(tag);
         expect(doSpawnSyncMock).toHaveBeenLastCalledWith({
-            command: 'docker',
+            command: 'sudo',
             args: [
+                'docker',
                 'build',
                 '--network=host',
                 '-t',
@@ -31,8 +33,9 @@ describe('dockerCommands', () => {
     it('dockerPush', () => {
         dockerPush(tag);
         expect(doSpawnSyncMock).toHaveBeenLastCalledWith({
-            command: 'docker',
+            command: 'sudo',
             args: [
+                'docker',
                 'push',
                 tag
             ],
