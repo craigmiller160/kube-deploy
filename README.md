@@ -12,6 +12,7 @@ This script needs to be able to read project configuration in order to run. The 
 
 1. JavaScript (package.json)
 1. Maven (pom.xml)
+1. Nginx (My special nginx project type)
 
 ## Project Structure
 
