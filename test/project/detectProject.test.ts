@@ -19,7 +19,9 @@ describe('detectProject', () => {
     });
 
     it('is nginx project', () => {
-
+        getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/nginx'));
+        const result: ProjectType = detectProject();
+        expect(result).toEqual(ProjectType.Nginx);
     });
 
     it('is unknown project', () => {
