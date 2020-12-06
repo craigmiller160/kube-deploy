@@ -18,6 +18,10 @@ const getArtifactExt = (projectType: ProjectType): string => {
 };
 
 export default (projectType: ProjectType, projectInfo: ProjectInfo): string => {
+    if (ProjectType.Nginx === projectType) {
+        return '';
+    }
+
     const ext = getArtifactExt(projectType);
     const buildDir = path.resolve(getCwd(), DEPLOY_BUILD_DIR);
     const files: string[] = fs.readdirSync(buildDir);

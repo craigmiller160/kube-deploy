@@ -2,8 +2,8 @@ import path from 'path';
 import getCwd from '../../src/utils/getCwd';
 import findAndValidateArtifact from '../../src/artifact/findAndValidateArtifact';
 import { ProjectType } from '../../src/project/detectProject';
-import Mock = jest.Mock;
 import ProjectInfo from '../../src/types/ProjectInfo';
+import Mock = jest.Mock;
 
 const getCwdMock: Mock = getCwd as Mock;
 const validProjectInfo: ProjectInfo = {
@@ -18,6 +18,12 @@ const jsArtifactPath = '/test/__data__/js/deploy/build/sample-project-1.0.0.zip'
 const mavenArtifactPath = '/test/__data__/maven/deploy/build/sample-project-1.0.0.jar'
 
 describe('findAndValidateArtifact', () => {
+    it('Nginx artifact, therefore skips check', () => {
+        getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/nginx'));
+        const result = findAndValidateArtifact(ProjectType.Nginx, validProjectInfo);
+        expect(result).toEqual('');
+    });
+
     it('JS artifact version is valid', () => {
         getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js'));
         const result = findAndValidateArtifact(ProjectType.JavaScript, validProjectInfo);
