@@ -18,6 +18,10 @@ describe('detectProject', () => {
         expect(result).toEqual(ProjectType.Maven);
     });
 
+    it('is nginx project', () => {
+
+    });
+
     it('is unknown project', () => {
         try {
             getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__'));
