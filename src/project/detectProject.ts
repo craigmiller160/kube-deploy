@@ -5,7 +5,8 @@ import KubeError from '../error/KubeError';
 
 export enum ProjectType {
     JavaScript = 'JavaScript',
-    Maven = 'Maven'
+    Maven = 'Maven',
+    Nginx = 'Nginx'
 }
 
 export default (): ProjectType => {
@@ -13,8 +14,11 @@ export default (): ProjectType => {
     if (!!files.find((file) => file === 'package.json')) {
         return ProjectType.JavaScript;
     }
-    if (files.find((file) => file === 'pom.xml')) {
+    if (!!files.find((file) => file === 'pom.xml')) {
         return ProjectType.Maven;
+    }
+    if (!!files.find((file) => file === 'nginx.json')) {
+        return ProjectType.Nginx;
     }
 
     throw new KubeError('Cannot identify project type');
