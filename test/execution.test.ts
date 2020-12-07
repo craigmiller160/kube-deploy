@@ -70,4 +70,8 @@ describe('kube-deploy end-to-end', () => {
         expect(status).toEqual(0);
         validateCommands(mavenCwd);
     });
+
+    it('deploys Nginx project', () => {
+        throw new Error();
+    });
 });
