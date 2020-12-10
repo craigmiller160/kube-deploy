@@ -84,6 +84,9 @@ describe('kube-deploy end-to-end', () => {
     });
 
     it('deploys Nginx project', () => {
-        throw new Error();
+        getCwdMock.mockImplementation(() => nginxCwd);
+        const status = execute();
+        expect(status).toEqual(0);
+        validateCommands(nginxCwd);
     });
 });
