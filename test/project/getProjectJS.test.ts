@@ -17,6 +17,11 @@ describe('getProjectJS', () => {
     });
 
     it('reads data from package.json with prefix', () => {
-        throw new Error();
+        getCwdMock.mockImplementation(() => path.resolve(process.cwd(), 'test/__data__/js2'));
+        const result: ProjectInfo = getProjectJS();
+        expect(result).toEqual({
+            name: 'sample-project',
+            version: '1.0.0'
+        });
     });
 });
