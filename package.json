@@ -10,7 +10,8 @@
     "build"
   ],
   "scripts": {
-    "build": "tsc",
+    "build": "jest && tsc",
+    "forceBuild": "tsc",
     "test": "jest"
   },
   "devDependencies": {
