@@ -7,12 +7,14 @@ import execute from '../src/execution';
 const getCwdMock: Mock = getCwd as Mock;
 const doSpawnSyncMock: Mock = doSpawnSync as Mock;
 const jsCwd = path.resolve(process.cwd(), 'test/__data__/js');
+const jsNoConfigCwd = path.resolve(process.cwd(), 'test/__data__/js-no-configmap');
 const mavenCwd = path.resolve(process.cwd(), 'test/__data__/maven');
 const nginxCwd = path.resolve(process.cwd(), 'test/__data__/nginx');
 const tag = 'localhost:32000/sample-project:1.0.0';
 
-const validateCommands = (cwd: string) => {
-    expect(doSpawnSyncMock).toHaveBeenNthCalledWith(1, {
+const validateCommands = (cwd: string, hasConfigMap: boolean = true) => {
+    let cmdCounter = 0;
+    expect(doSpawnSyncMock).toHaveBeenNthCalledWith(++cmdCounter, {
         command: 'sudo',
         args: [
             'docker',
@@ -24,7 +26,7 @@ const validateCommands = (cwd: string) => {
         ],
         cwd: `${cwd}/deploy`
     });
-    expect(doSpawnSyncMock).toHaveBeenNthCalledWith(2, {
+    expect(doSpawnSyncMock).toHaveBeenNthCalledWith(++cmdCounter, {
         command: 'sudo',
         args: [
             'docker',
@@ -33,16 +35,18 @@ const validateCommands = (cwd: string) => {
         ],
         cwd: `${cwd}/deploy`
     });
-    expect(doSpawnSyncMock).toHaveBeenNthCalledWith(3, {
-        command: 'kubectl',
-        args: [
-            'apply',
-            '-f',
-            'configmap.yml'
-        ],
-        cwd: `${cwd}/deploy`
-    });
-    expect(doSpawnSyncMock).toHaveBeenNthCalledWith(4, {
+    if (hasConfigMap) {
+        expect(doSpawnSyncMock).toHaveBeenNthCalledWith(++cmdCounter, {
+            command: 'kubectl',
+            args: [
+                'apply',
+                '-f',
+                'configmap.yml'
+            ],
+            cwd: `${cwd}/deploy`
+        });
+    }
+    expect(doSpawnSyncMock).toHaveBeenNthCalledWith(++cmdCounter, {
         command: 'kubectl',
         args: [
             'apply',
@@ -66,7 +70,10 @@ describe('kube-deploy end-to-end', () => {
     });
 
     it('deploys JS project without configmap', () => {
-        throw new Error();
+        getCwdMock.mockImplementation(() => jsNoConfigCwd);
+        const status = execute();
+        expect(status).toEqual(0);
+        validateCommands(jsNoConfigCwd, false);
     });
 
     it('deploys Maven project', () => {
