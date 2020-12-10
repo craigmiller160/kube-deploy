@@ -7,7 +7,8 @@ import execute from '../src/execution';
 const getCwdMock: Mock = getCwd as Mock;
 const doSpawnSyncMock: Mock = doSpawnSync as Mock;
 const jsCwd = path.resolve(process.cwd(), 'test/__data__/js');
-const mavenCwd = path.resolve(process.cwd(), 'test/__data__/js');
+const mavenCwd = path.resolve(process.cwd(), 'test/__data__/maven');
+const nginxCwd = path.resolve(process.cwd(), 'test/__data__/nginx');
 const tag = 'localhost:32000/sample-project:1.0.0';
 
 const validateCommands = (cwd: string) => {
@@ -62,6 +63,10 @@ describe('kube-deploy end-to-end', () => {
         const status = execute();
         expect(status).toEqual(0);
         validateCommands(jsCwd);
+    });
+
+    it('deploys JS project without configmap', () => {
+        throw new Error();
     });
 
     it('deploys Maven project', () => {
