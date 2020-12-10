@@ -15,4 +15,8 @@ describe('getProjectJS', () => {
             version: '1.0.0'
         });
     });
+
+    it('reads data from package.json with prefix', () => {
+        throw new Error();
+    });
 });
