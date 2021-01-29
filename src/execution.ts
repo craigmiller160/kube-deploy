@@ -12,7 +12,7 @@ import path from 'path';
 import fs from 'fs';
 import getCwd from './utils/getCwd';
 
-const repoPrefix = 'localhost:32000';
+const repoPrefix = 'craigmiller160.ddns.net:30004';
 
 const getProjectInfo = (projectType: ProjectType): ProjectInfo => {
     switch (projectType) {

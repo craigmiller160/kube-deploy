@@ -1,7 +1,6 @@
 import path from 'path';
 import getCwd from '../utils/getCwd';
 import { doSpawnSync } from '../utils/doSpawn';
-import chalk from 'chalk';
 import KubeError from '../error/KubeError';
 
 export const dockerBuild = (tag: string) => {
