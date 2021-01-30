@@ -10,7 +10,7 @@ const jsCwd = path.resolve(process.cwd(), 'test/__data__/js');
 const jsNoConfigCwd = path.resolve(process.cwd(), 'test/__data__/js-no-configmap');
 const mavenCwd = path.resolve(process.cwd(), 'test/__data__/maven');
 const nginxCwd = path.resolve(process.cwd(), 'test/__data__/nginx');
-const tag = 'localhost:32000/sample-project:1.0.0';
+const tag = 'craigmiller160.ddns.net:30004/sample-project:1.0.0';
 
 const validateCommands = (cwd: string, hasConfigMap: boolean = true) => {
     let cmdCounter = 0;
