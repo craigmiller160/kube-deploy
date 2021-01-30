@@ -1,5 +1,9 @@
 declare module 'shell-env' {
-    export default {
-
+    interface ShellEnv {
+        sync<Envs extends object>(): Envs;
     }
+
+    const shellEnv: ShellEnv;
+
+    export default shellEnv;
 }
