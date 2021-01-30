@@ -67,6 +67,7 @@ describe('kube-deploy end-to-end', () => {
         const status = execute();
         expect(status).toEqual(0);
         validateCommands(jsCwd);
+        throw new Error();
     });
 
     it('deploys JS project without configmap', () => {
@@ -74,6 +75,7 @@ describe('kube-deploy end-to-end', () => {
         const status = execute();
         expect(status).toEqual(0);
         validateCommands(jsNoConfigCwd, false);
+        throw new Error();
     });
 
     it('deploys Maven project', () => {
@@ -81,6 +83,7 @@ describe('kube-deploy end-to-end', () => {
         const status = execute();
         expect(status).toEqual(0);
         validateCommands(mavenCwd);
+        throw new Error();
     });
 
     it('deploys Nginx project', () => {
@@ -88,5 +91,6 @@ describe('kube-deploy end-to-end', () => {
         const status = execute();
         expect(status).toEqual(0);
         validateCommands(nginxCwd);
+        throw new Error();
     });
 });
