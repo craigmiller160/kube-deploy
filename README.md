@@ -6,6 +6,13 @@ A utility script for automating the deployment of my applications to my local K8
 
 Run `yarn` to install all dependencies.
 
+Make sure that the necessary Docker credentials for the Nexus repo are on the machine via environment variables:
+
+```
+NEXUS_DOCKER_USER
+NEXUS_DOCKER_PASSWORD
+```
+
 ## Supported Project Types
 
 This script needs to be able to read project configuration in order to run. The following project types are supported:
