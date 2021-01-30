@@ -1,6 +1,9 @@
 {
   "name": "@craigmiller160/kube-deploy",
   "version": "1.2.0-beta",
+  "publishConfig": {
+    "registry": "https://craigmiller160.ddns.net:30003/repository/npm-private/"
+  },
   "main": "build/index.js",
   "license": "MIT",
   "bin": {
