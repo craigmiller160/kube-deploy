@@ -1,7 +1,7 @@
 {
   "name": "@craigmiller160/kube-deploy",
   "version": "1.2.0-beta",
-  "main": "index.js",
+  "main": "build/index.js",
   "license": "MIT",
   "bin": {
     "kube-deploy": "build/index.js"
