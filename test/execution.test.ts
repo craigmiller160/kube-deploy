@@ -3,6 +3,12 @@ import { doSpawnSync } from '../src/utils/doSpawn';
 import Mock = jest.Mock;
 import path from 'path';
 import execute from '../src/execution';
+import { DOCKER_REPO } from '../src/utils/dockerConstants';
+import shellEnv from 'shell-env';
+
+jest.mock('shell-env', () => ({
+    sync: jest.fn()
+}));
 
 const getCwdMock: Mock = getCwd as Mock;
 const doSpawnSyncMock: Mock = doSpawnSync as Mock;
@@ -10,10 +16,25 @@ const jsCwd = path.resolve(process.cwd(), 'test/__data__/js');
 const jsNoConfigCwd = path.resolve(process.cwd(), 'test/__data__/js-no-configmap');
 const mavenCwd = path.resolve(process.cwd(), 'test/__data__/maven');
 const nginxCwd = path.resolve(process.cwd(), 'test/__data__/nginx');
-const tag = 'localhost:32000/sample-project:1.0.0';
+const syncMock: Mock = shellEnv.sync as Mock;
+const tag = `${DOCKER_REPO}/sample-project:1.0.0`;
+const user = 'user';
+const password = 'password';
 
 const validateCommands = (cwd: string, hasConfigMap: boolean = true) => {
     let cmdCounter = 0;
+    expect(doSpawnSyncMock).toHaveBeenNthCalledWith(++cmdCounter, {
+        command: 'sudo',
+        args: [
+            'docker',
+            'login',
+            DOCKER_REPO,
+            '-u',
+            user,
+            '-p',
+            password
+        ]
+    });
     expect(doSpawnSyncMock).toHaveBeenNthCalledWith(++cmdCounter, {
         command: 'sudo',
         args: [
@@ -60,6 +81,10 @@ const validateCommands = (cwd: string, hasConfigMap: boolean = true) => {
 describe('kube-deploy end-to-end', () => {
     beforeEach(() => {
         doSpawnSyncMock.mockImplementation(() => ({ status: 0 }));
+        syncMock.mockImplementation(() => ({
+            NEXUS_DOCKER_USER: user,
+            NEXUS_DOCKER_PASSWORD: password
+        }));
     });
 
     it('deploys JS project', () => {

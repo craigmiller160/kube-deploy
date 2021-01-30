@@ -6,6 +6,13 @@ A utility script for automating the deployment of my applications to my local K8
 
 Run `yarn` to install all dependencies.
 
+Make sure that the necessary Docker credentials for the Nexus repo are on the machine via environment variables:
+
+```
+NEXUS_DOCKER_USER
+NEXUS_DOCKER_PASSWORD
+```
+
 ## Supported Project Types
 
 This script needs to be able to read project configuration in order to run. The following project types are supported:
@@ -30,4 +37,10 @@ pom.xml
 
 ## Deploying Script
 
-First, build the project with `yarn build`. Then, link it to Node's globals directory with `npm link`. NPM must be used, for some reason Yarn won't work for this.
+First, build the project with `yarn build`. Then publish it to Nexus with `yarn publish`.
+
+## Using Script
+
+First, install it on the target machine with `npm i -g @craigmiller160/kube-deploy`. Alternatively, to upgrade, use `npm u -g @craigmiller160/kube-deploy`.
+
+Then just run `kube-deploy` in the root of the project.
