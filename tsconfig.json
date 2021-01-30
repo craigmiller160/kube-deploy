@@ -6,6 +6,10 @@
       "dom.iterable",
       "esnext"
     ],
+    "typeRoots": [
+      "./customTypes",
+      "./node_modules/@types"
+    ],
     "outDir": "./build",
     "allowJs": true,
     "skipLibCheck": true,
@@ -25,6 +29,7 @@
   ],
   "exclude": [
     "node_modules",
+    "customTypes",
     "lib",
     "build",
     ".yalc"

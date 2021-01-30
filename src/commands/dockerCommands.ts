@@ -2,7 +2,7 @@ import path from 'path';
 import getCwd from '../utils/getCwd';
 import { doSpawnSync } from '../utils/doSpawn';
 import KubeError from '../error/KubeError';
-
+import shellEnv from 'shell-env';
 
 export const dockerBuild = (tag: string) => {
     const result = doSpawnSync({
