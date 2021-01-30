@@ -41,6 +41,6 @@ First, build the project with `yarn build`. Then publish it to Nexus with `yarn 
 
 ## Using Script
 
-First, install it on the target machine with `npm i -g @craigmiller160/kube-deploy`. Alternatively, to upgrade, use `npm u -g @craigmiller160/kube-deploy`.
+First, install it on the target machine with `npm i -g @craigmiller160/kube-deploy`. Alternatively, to upgrade, use `npm update -g @craigmiller160/kube-deploy`.
 
 Then just run `kube-deploy` in the root of the project.
