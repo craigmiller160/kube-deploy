@@ -14,6 +14,11 @@ describe('dockerCommands', () => {
         getCwdMock.mockImplementation(() => cwd);
         doSpawnSyncMock.mockImplementation(() => ({ status: 0 }));
     });
+
+    it('dockerLogin', () => {
+        throw new Error();
+    });
+
     it('dockerBuild', () => {
         dockerBuild(tag);
         expect(doSpawnSyncMock).toHaveBeenCalledWith({

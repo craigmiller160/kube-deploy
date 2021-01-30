@@ -3,6 +3,7 @@ import getCwd from '../utils/getCwd';
 import { doSpawnSync } from '../utils/doSpawn';
 import KubeError from '../error/KubeError';
 import shellEnv from 'shell-env';
+import { DOCKER_REPO } from '../utils/dockerConstants';
 
 interface Environment {
     NEXUS_DOCKER_USER: string;
@@ -19,7 +20,12 @@ export const dockerLogin = () => {
         command: 'sudo',
         args: [
             'docker',
-            'login'
+            'login',
+            DOCKER_REPO,
+            '-u',
+            NEXUS_DOCKER_USER,
+            '-p',
+            NEXUS_DOCKER_PASSWORD
         ]
     });
     if (result.status !== 0) {

@@ -11,8 +11,7 @@ import getProjectNginx from './project/getProjectNginx';
 import path from 'path';
 import fs from 'fs';
 import getCwd from './utils/getCwd';
-
-const repoPrefix = 'craigmiller160.ddns.net:30004';
+import { DOCKER_REPO } from './utils/dockerConstants';
 
 const getProjectInfo = (projectType: ProjectType): ProjectInfo => {
     switch (projectType) {
@@ -37,7 +36,7 @@ const execute = (): number => {
         findAndValidateArtifact(projectType, projectInfo);
         validateDeploymentVersion(projectInfo.version);
 
-        const dockerTag = `${repoPrefix}/${projectInfo.name}:${projectInfo.version}`
+        const dockerTag = `${DOCKER_REPO}/${projectInfo.name}:${projectInfo.version}`
         console.log(`Deploying ${dockerTag}`);
 
         dockerBuild(dockerTag);
