@@ -4,7 +4,7 @@ import getProjectJS from './project/getProjectJS';
 import getProjectMaven from './project/getProjectMaven';
 import findAndValidateArtifact from './artifact/findAndValidateArtifact';
 import validateDeploymentVersion from './deployment/validateDeploymentVersion';
-import { dockerBuild, dockerPush } from './commands/dockerCommands';
+import { dockerBuild, dockerLogin, dockerPush } from './commands/dockerCommands';
 import chalk from 'chalk';
 import { applyConfigMap, applyDeployment } from './commands/kubeCommands';
 import getProjectNginx from './project/getProjectNginx';
@@ -39,6 +39,7 @@ const execute = (): number => {
         const dockerTag = `${DOCKER_REPO}/${projectInfo.name}:${projectInfo.version}`
         console.log(`Deploying ${dockerTag}`);
 
+        dockerLogin();
         dockerBuild(dockerTag);
         dockerPush(dockerTag);
         if (fs.existsSync(path.resolve(getCwd(), 'deploy/configmap.yml'))) {
